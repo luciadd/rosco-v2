@@ -1,0 +1,79 @@
+.rosco-circle {
+  position: relative;
+  width: 400px;    /* 2*radius + margin */
+  height: 400px;
+  margin: 32px auto;
+}
+
+.rosco-letter {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #fff;
+  color: #222;
+  border: 2.5px solid #aaa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 28px;
+  box-sizing: border-box;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+  z-index: 1;
+  user-select: none;
+  box-shadow: 0 2px 7px #0002;
+}
+
+.rosco-letter.current {
+  background: #2196f3;
+  color: #fff;
+  border-color: #1976d2;
+  z-index: 2;
+  box-shadow: 0 0 16px 2px #2196f366;
+}
+
+.rosco-letter.correct {
+  background: #4caf50;
+  color: #fff;
+  border-color: #2e7d32;
+}
+
+.rosco-letter.wrong {
+  background: #f44336;
+  color: #fff;
+  border-color: #b71c1c;
+}
+
+.rosco-letter.pending {
+  background: #fffde7;
+  color: #ff9800;
+  border-color: #ffb300;
+}
+
+/* Center and enlarge the host controls */
+.host-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 44px 0 32px 0;
+}
+
+.host-buttons button {
+  font-size: 2.1rem;
+  padding: 22px 48px;
+  border-radius: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 14px #0002;
+  transition: background 0.2s, color 0.2s, transform 0.1s;
+}
+
+.host-buttons button:active {
+  transform: scale(0.96);
+}
+
+.host-buttons button:nth-child(1) { background: #4caf50; color: #fff; }
+.host-buttons button:nth-child(2) { background: #f44336; color: #fff; }
+.host-buttons button:nth-child(3) { background: #FFC107; color: #222; }
