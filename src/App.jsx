@@ -86,4 +86,126 @@ export default function App() {
     const newStatus = [...status];
     newStatus[idx].state = "wrong";
     setStatus(newStatus);
-    go
+    goToNextLetter(true); // Timer pauses
+  }
+
+  function handlePasapalabra() {
+    const idx = getCurrentIndex();
+    if (status[idx].state === "pending" && !pending.includes(idx)) {
+      setPending([...pending, idx]);
+    }
+    goToNextLetter(true); // Timer pauses
+  }
+
+  function restart() {
+    setCurrent(0);
+    setStatus(getInitialStatus());
+    setPending([]);
+    setRound(1);
+    setGameOver(false);
+    setTimeLeft(TOTAL_TIME);
+    setTimerRunning(false);
+    setStarted(false);
+  }
+
+  function handleStart() {
+    setStarted(true);
+    setTimerRunning(true);
+  }
+
+  const idx = getCurrentIndex();
+  const question = ROSCO[idx];
+
+  return (
+    <div className="app-container">
+      <h1>El Rosco</h1>
+      <LetterCircle status={status} current={idx} />
+      <div
+        style={{
+          textAlign: "center",
+          fontSize: "2.2rem",
+          fontWeight: "bold",
+          margin: "16px 0 10px 0",
+          color: timeLeft <= 10 ? "#f44336" : "#222",
+        }}
+      >
+        {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, "0")}
+      </div>
+
+      {!started && !gameOver ? (
+        <div style={{ textAlign: "center", marginTop: 40 }}>
+          <button
+            onClick={handleStart}
+            style={{
+              fontSize: "2.4rem",
+              padding: "30px 80px",
+              borderRadius: 18,
+              background: "#2196f3",
+              color: "#fff",
+              border: "none",
+              fontWeight: "bold",
+              boxShadow: "0 2px 18px #2196f366",
+              cursor: "pointer",
+            }}
+          >
+            Start
+          </button>
+        </div>
+      ) : !gameOver ? (
+        <div>
+          <div
+            className="clue"
+            style={{
+              textAlign: "center",
+              fontSize: "2rem",
+              margin: "32px auto 12px auto",
+              maxWidth: 650,
+            }}
+          >
+            <strong>{question.letter}</strong>: {question.clue}
+          </div>
+          <div className="host-buttons">
+            <button onClick={handleCorrect}>Correcto</button>
+            <button onClick={handleWrong}>Incorrecto</button>
+            <button onClick={handlePasapalabra}>Pasapalabra</button>
+          </div>
+          {!timerRunning && started && (
+            <div style={{ textAlign: "center", marginTop: 20 }}>
+              <button
+                onClick={() => setTimerRunning(true)}
+                style={{
+                  fontSize: "1.6rem",
+                  padding: "12px 28px",
+                  borderRadius: 12,
+                  background: "#ff9800",
+                  color: "#fff",
+                  border: "none",
+                  fontWeight: "bold",
+                  boxShadow: "0 2px 12px #ff980066",
+                  cursor: "pointer",
+                }}
+              >
+                Reanudar
+              </button>
+            </div>
+          )}
+        </div>
+      ) : (
+        <div
+          className="gameover"
+          style={{ textAlign: "center", fontSize: "2rem", marginTop: 60 }}
+        >
+          <span>
+            ¡Fin del juego!{" "}
+            <button
+              onClick={restart}
+              style={{ fontSize: "1.2rem", padding: "10px 28px" }}
+            >
+              Reiniciar
+            </button>
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
