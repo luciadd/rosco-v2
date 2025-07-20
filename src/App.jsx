@@ -48,3 +48,42 @@ export default function App() {
     if (pauseTimer) setTimerRunning(false);
     if (round === 1) {
       if (current < ROSCO.length - 1) {
+        setCurrent((c) => c + 1);
+      } else if (pending.length > 0) {
+        setRound(2);
+        setCurrent(0);
+      } else {
+        setGameOver(true);
+        setTimerRunning(false);
+      }
+    } else {
+      if (current < pending.length - 1) {
+        setCurrent((c) => c + 1);
+      } else {
+        const stillPending = pending.filter(i => status[i].state === "pending");
+        if (stillPending.length > 0) {
+          setPending(stillPending);
+          setCurrent(0);
+          setRound(r => r + 1);
+        } else {
+          setGameOver(true);
+          setTimerRunning(false);
+        }
+      }
+    }
+  }
+
+  function handleCorrect() {
+    const idx = getCurrentIndex();
+    const newStatus = [...status];
+    newStatus[idx].state = "correct";
+    setStatus(newStatus);
+    goToNextLetter(false); // Timer continues
+  }
+
+  function handleWrong() {
+    const idx = getCurrentIndex();
+    const newStatus = [...status];
+    newStatus[idx].state = "wrong";
+    setStatus(newStatus);
+    go
