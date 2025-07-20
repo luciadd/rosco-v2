@@ -24,5 +24,5 @@ export const ROSCO = [
   { letter: "W", clue: "Famosa canción de la banda de Manchester que van a ver en Noviembre", answer: "Wonderwall" },
   { letter: "X", clue: "Contiene X. Canción de Wisin y Yandel de 2005 Hoy es noche de...", answer: "Sexo" },
   { letter: "Y", clue: "Contiene Y: Banda que van a ver Gime y Lu en Septiembre", answer: "Green Day" },
-  { letter: "Z", clue: "Contiene Z: Localidad en la que vive Luciana, answer: "Ituzaingo" },
+  { letter: "Z", clue: "Contiene Z: Localidad en la que vive Luciana", answer: "Ituzaingo" },
    ];
